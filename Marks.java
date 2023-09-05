@@ -36,5 +36,25 @@ public class Marks
             System.out.print(mark + " ");
         }
         System.out.println();
+        
+        findHighestAndLowest(marksList);
+    }
+    
+    // ALgorithm 1: 
+        public static void findHighestAndLowest(double[] marks) {
+        double highestMark = -1;
+        double lowestMark = 31;
+
+        for (double mark : marks) {
+            if (mark > highestMark) {
+                highestMark = mark;
+            }
+            if (mark < lowestMark) {
+                lowestMark = mark;
+            }
+        }
+
+        System.out.println("Highest Mark: " + highestMark);
+        System.out.println("Lowest Mark: " + lowestMark);
     }
 }
