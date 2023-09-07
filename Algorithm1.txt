@@ -1,0 +1,19 @@
+START
+
+  SET highestMark = -1
+  SET lowestMark = 31
+  
+  FOR each mark in marksList DO
+    IF mark > highestMark THEN
+      SET highestMark = mark
+    END IF
+
+    IF mark < lowestMark THEN
+      SET lowestMark = mark
+    END IF
+  END FOR
+
+  PRINT "Highest Mark: ", highestMark
+  PRINT "Lowest Mark: ", lowestMark
+
+END
