@@ -19,10 +19,14 @@
             double[] marksList = new double[30];
             int studentCount = 0;
     
+            // F2:  allows the user to input students' marks for the assignment. In this task, you can assume that there are 30 students in the unit. Your program
+            //must accept only valid mark inputs by users. A valid mark is any number between 0 and 30
             while (studentCount < 30) {
                 System.out.print("Enter mark for student " + (studentCount + 1) + ": ");
                 double mark = scanner.nextDouble();
-    
+        
+                // F3reports any invalid input by showing an error message on the screen to the user with sufficient details of the error before allowing users to reenter the mark.
+
                 if (mark >= 0 && mark <= 30) {
                     marksList[studentCount] = mark;
                     studentCount++;
@@ -30,18 +34,20 @@
                     System.out.println("Invalid input! Enter a mark between 0 and 30.");
                 }
             }
-    
+        // F4 prints the assignment name following the 'students' marks after users have finished entering the marks
             System.out.println("Assignment Name: " + assignmentName);
             for (double mark : marksList) {
                 System.out.print(mark + " ");
             }
             System.out.println();
-            
+            // F5: prints the highest mark and the lowest mark on the screen. You are required to complete this functional requirement in two steps
             findHighestAndLowest(marksList);
+            
+            // calculates the mean and standard deviation of the marks and print the result on the screen. Like in F5, you are required to complete this functional requirement in two steps:
             calculateMeanAndStandardDeviation(marksList);
         }
         
-        // ALgorithm 1: 
+        // ALgorithm 1: Implement Algorithm 1 based on the pseudo code you created in Step 1. Note that the implementation must be in line with the pseudo code.
             public static void findHighestAndLowest(double[] marks) {
             // initialization of variables 
             double highestMark = -1;
@@ -93,6 +99,8 @@
         return approximation;
     }
     
+    
+    // Algorithm 2 : Calculate Mean and Standard deviation of marks
         public static void calculateMeanAndStandardDeviation(double[] marks) {
             
             // initialize the variable

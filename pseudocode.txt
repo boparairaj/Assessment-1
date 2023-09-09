@@ -1,0 +1,110 @@
+
+---------------------------------------------------------------------------------------------------
+				Algorithm 1
+---------------------------------------------------------------------------------------------------
+START
+
+  SET highestMark = -1
+  SET lowestMark = 31
+  
+  FOR each mark in marksList DO
+    IF mark > highestMark THEN
+      SET highestMark = mark
+    END IF
+
+    IF mark < lowestMark THEN
+      SET lowestMark = mark
+    END IF
+  END FOR
+
+  PRINT "Highest Mark: ", highestMark
+  PRINT "Lowest Mark: ", lowestMark
+
+END
+
+
+---------------------------------------------------------------------------------------------------
+				Algorithm 2
+---------------------------------------------------------------------------------------------------
+FUNCTION manualAbs(value)
+      IF value < 0 THEN
+         RETURN -value
+      ELSE
+         RETURN value
+      END IF
+   END FUNCTION
+
+   FUNCTION manualSqrt(value)
+      IF value = 0 OR value = 1 THEN
+         RETURN value
+      END IF
+      
+      Declare precision as Real = 0.00001
+      Declare approximation as Real = value
+      Declare previous as Real
+
+      REPEAT
+         previous = approximation
+         approximation = 0.5 * (approximation + value / approximation)
+      UNTIL manualAbs(approximation - previous) <= precision
+      
+      RETURN approximation
+   END FUNCTION
+
+   PROCEDURE calculateMeanAndStandardDeviation(marks)
+      Declare total as Real = 0
+      Declare varianceSum as Real = 0
+
+      FOR EACH mark IN marks
+         total = total + mark
+      END FOR
+
+      Declare mean as Real = total / length of marks
+      
+      FOR EACH mark IN marks
+         varianceSum = varianceSum + (mark - mean) * (mark - mean)
+      END FOR
+      
+      Declare variance as Real = varianceSum / length of marks
+      Declare standardDeviation as Real = CALL manualSqrt(variance)
+      
+      OUTPUT "Variance:" + variance
+      OUTPUT "Mean: " + mean
+      OUTPUT "Standard Deviation: " + standardDeviation
+   END PROCEDURE
+
+
+
+---------------------------------------------------------------------------------------------------
+				Main Function
+---------------------------------------------------------------------------------------------------
+
+   PROCEDURE main
+      Declare assignmentName as String
+      Declare marksList[30] as Real Array
+      Declare studentCount as Integer = 0
+
+      OUTPUT "Enter the assignment name:"
+      INPUT assignmentName
+      
+      WHILE studentCount < 30 DO
+         OUTPUT "Enter mark for student " + (studentCount + 1) + ":"
+         INPUT mark
+         
+         IF mark >= 0 AND mark <= 30 THEN
+            marksList[studentCount] = mark
+            studentCount = studentCount + 1
+         ELSE
+            OUTPUT "Invalid input! Enter a mark between 0 and 30."
+         END IF
+      END WHILE
+      
+      OUTPUT "Assignment Name: " + assignmentName
+      FOR EACH mark IN marksList
+         OUTPUT mark + " "
+      END FOR
+      OUTPUT newline
+      
+      CALL findHighestAndLowest(marksList)
+      CALL calculateMeanAndStandardDeviation(marksList)
+   END PROCEDURE
