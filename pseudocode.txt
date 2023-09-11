@@ -26,53 +26,34 @@ END
 ---------------------------------------------------------------------------------------------------
 				Algorithm 2
 ---------------------------------------------------------------------------------------------------
-FUNCTION manualAbs(value)
-      IF value < 0 THEN
-         RETURN -value
-      ELSE
-         RETURN value
-      END IF
-   END FUNCTION
+  Set total to 0
+  Set varianceSum to 0
 
-   FUNCTION manualSqrt(value)
-      IF value = 0 OR value = 1 THEN
-         RETURN value
-      END IF
-      
-      Declare precision as Real = 0.00001
-      Declare approximation as Real = value
-      Declare previous as Real
+  FOR EACH mark in marksList
+      total = total + mark
+  END FOR
+  
+  Compute mean = total / size of marksList
 
+  FOR EACH mark in marksList
+      varianceSum = varianceSum + (mark - mean)^2
+  END FOR
+  
+  Compute variance = varianceSum / size of marksList
+
+  Use Babylonian method to calculate square root of variance:
+      Set precision to 0.00001
+      Set approximation to variance
       REPEAT
-         previous = approximation
-         approximation = 0.5 * (approximation + value / approximation)
-      UNTIL manualAbs(approximation - previous) <= precision
-      
-      RETURN approximation
-   END FUNCTION
+          Set previous = approximation
+          approximation = 0.5 * (approximation + variance / approximation)
+      UNTIL absolute(approximation - previous) < precision
 
-   PROCEDURE calculateMeanAndStandardDeviation(marks)
-      Declare total as Real = 0
-      Declare varianceSum as Real = 0
+  Set standardDeviation = approximation
 
-      FOR EACH mark IN marks
-         total = total + mark
-      END FOR
-
-      Declare mean as Real = total / length of marks
-      
-      FOR EACH mark IN marks
-         varianceSum = varianceSum + (mark - mean) * (mark - mean)
-      END FOR
-      
-      Declare variance as Real = varianceSum / length of marks
-      Declare standardDeviation as Real = CALL manualSqrt(variance)
-      
-      OUTPUT "Variance:" + variance
-      OUTPUT "Mean: " + mean
-      OUTPUT "Standard Deviation: " + standardDeviation
-   END PROCEDURE
-
+  Display "Variance:" and variance
+  Display "Mean:" and mean
+  Display "Standard Deviation:" and standardDeviation
 
 
 ---------------------------------------------------------------------------------------------------
